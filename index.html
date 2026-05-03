@@ -1,17 +1,667 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grfyn POS - Kelola Bisnis Lebih Mudah</title>
-    <meta name="description" content="Grfyn POS - Sistem Point of Sale modern untuk mengelola penjualan, stok, dan laporan bisnis Anda dengan mudah." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grfyn POS - Kelola Bisnis Lebih Mudah</title>
+  <meta name="description" content="Grfyn POS - Sistem Point of Sale modern untuk mengelola penjualan, stok, dan laporan bisnis Anda dengan mudah." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#FAF0E8', 100: '#F5E0D0', 200: '#EBC4A8', 300: '#E0A380',
+              400: '#D48258', 500: '#C4683D', 600: '#A35030', 700: '#843E24',
+              800: '#682E1A', 900: '#4E2112',
+            },
+            accent: {
+              50: '#F0F6F4', 100: '#DFEFEA', 200: '#BFDFD6', 300: '#9DCFC0',
+              400: '#7ABFAA', 500: '#5EAB96', 600: '#4B8C7A', 700: '#3A6E5F',
+              800: '#2A5246', 900: '#1C382F',
+            },
+            warm: {
+              50: '#FDF9F0', 100: '#FAF2E0', 200: '#F5E5C0', 300: '#EED59A',
+              400: '#E6C575', 500: '#DBB250', 600: '#C09940', 700: '#A07D30',
+              800: '#806224', 900: '#604818',
+            },
+            dark: {
+              50: '#F5F2EE', 100: '#E8E2DA', 200: '#CFC5B8', 300: '#B5A796',
+              400: '#998A76', 500: '#7D6D59', 600: '#635446', 700: '#4B3E34',
+              800: '#352B23', 900: '#211A15',
+            },
+            surface: '#FDF8F2',
+            card: '#FFFDF9',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: #4B3E34; background: #FDF8F2; min-height: 100vh; }
+    ::selection { background: #C4683D20; color: #C4683D; }
+
+    .glass {
+      background: rgba(255, 253, 249, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 253, 249, 0.6);
+    }
+
+    .card-hover {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px -8px rgba(196, 104, 61, 0.15), 0 4px 12px -4px rgba(0, 0, 0, 0.05);
+    }
+
+    .animate-in {
+      animation: fadeSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .stagger-1 { animation-delay: 0.05s; }
+    .stagger-2 { animation-delay: 0.1s; }
+    .stagger-3 { animation-delay: 0.15s; }
+    .stagger-4 { animation-delay: 0.2s; }
+    .stagger-5 { animation-delay: 0.25s; }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+  </style>
+</head>
+<body class="min-h-screen bg-surface">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16">
+        <a href="#" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
+            <i data-lucide="shopping-cart" class="w-4 h-4 text-white"></i>
+          </div>
+          <span class="text-lg font-bold text-dark-800">Grfyn POS</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#fitur" class="text-sm font-medium text-dark-500 hover:text-primary-600 transition-colors">Fitur</a>
+          <a href="#cara-kerja" class="text-sm font-medium text-dark-500 hover:text-primary-600 transition-colors">Cara Kerja</a>
+          <a href="#harga" class="text-sm font-medium text-dark-500 hover:text-primary-600 transition-colors">Harga</a>
+          <a href="#faq" class="text-sm font-medium text-dark-500 hover:text-primary-600 transition-colors">FAQ</a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-3">
+          <a href="/login" class="text-sm font-medium text-dark-500 hover:text-primary-600 transition-colors px-4 py-2">Masuk</a>
+          <a href="/register" class="text-sm font-semibold text-white bg-primary-500 hover:bg-primary-600 transition-colors px-5 py-2.5 rounded-xl">Coba Gratis</a>
+        </div>
+
+        <button id="menu-btn" class="md:hidden p-2 text-dark-500">
+          <i data-lucide="menu" class="w-5 h-5" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden glass border-t border-primary-100">
+      <div class="px-4 py-4 space-y-3">
+        <a href="#fitur" class="block text-sm font-medium text-dark-500 hover:text-primary-600 py-2">Fitur</a>
+        <a href="#cara-kerja" class="block text-sm font-medium text-dark-500 hover:text-primary-600 py-2">Cara Kerja</a>
+        <a href="#harga" class="block text-sm font-medium text-dark-500 hover:text-primary-600 py-2">Harga</a>
+        <a href="#faq" class="block text-sm font-medium text-dark-500 hover:text-primary-600 py-2">FAQ</a>
+        <div class="pt-3 border-t border-primary-100 flex flex-col gap-2">
+          <a href="/login" class="text-sm font-medium text-dark-500 text-center py-2">Masuk</a>
+          <a href="/register" class="text-sm font-semibold text-white bg-primary-500 text-center py-2.5 rounded-xl">Coba Gratis</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-20 right-0 w-96 h-96 bg-primary-200/30 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-72 h-72 bg-accent-200/30 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 border border-primary-100 text-primary-700 text-xs font-semibold mb-8 animate-in">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#C4683D" stroke="#C4683D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Solusi POS Terpercaya untuk UMKM Indonesia
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-extrabold text-dark-900 leading-tight mb-6 animate-in stagger-1">
+          Kelola Bisnis Lebih <span class="text-primary-500">Mudah</span> & <span class="text-accent-600">Cepat</span>
+        </h1>
+
+        <p class="text-base md:text-lg text-dark-400 leading-relaxed mb-10 max-w-2xl mx-auto animate-in stagger-2">
+          Grfyn POS membantu Anda mengelola penjualan, stok barang, dan laporan keuangan dalam satu platform yang simpel dan powerful. Cocok untuk toko retail, restoran, dan bisnis apapun.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12 animate-in stagger-3">
+          <a href="/register" class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-semibold transition-all shadow-lg shadow-primary-500/20 hover:shadow-primary-500/30">
+            Mulai Gratis 14 Hari
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#fitur" class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-primary-200 text-dark-600 font-semibold hover:bg-primary-50 transition-all">
+            Pelajari Fitur
+          </a>
+        </div>
+
+        <div class="flex items-center justify-center gap-6 text-xs text-dark-400 animate-in stagger-4">
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-accent-500"></i>
+            <span>Tanpa kartu kredit</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-accent-500"></i>
+            <span>Bisa dibatalkan kapan saja</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 md:mt-20 relative animate-in stagger-5">
+        <div class="relative mx-auto max-w-5xl rounded-2xl md:rounded-3xl border border-primary-100 bg-card shadow-2xl shadow-primary-900/5 overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-8 md:h-10 bg-warm-50 border-b border-primary-100 flex items-center px-4 gap-2">
+            <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-400"></div>
+            <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-amber-400"></div>
+            <div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-emerald-400"></div>
+          </div>
+          <div class="pt-10 md:pt-12 p-4 md:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+              <div class="col-span-2 space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-xs text-dark-400">Total Penjualan Hari Ini</p>
+                    <p class="text-2xl md:text-3xl font-bold text-dark-800">Rp 12.450.000</p>
+                  </div>
+                  <div class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-600 text-xs font-semibold">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
+                    +24%
+                  </div>
+                </div>
+                <div class="h-32 md:h-40 rounded-xl bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-100 flex items-end px-4 pb-4 gap-2">
+                  <div class="flex-1 rounded-t-md bg-primary-400/80 hover:bg-primary-500 transition-colors" style="height:40%"></div>
+                  <div class="flex-1 rounded-t-md bg-primary-400/80 hover:bg-primary-500 transition-colors" style="height:65%"></div>
+                  <div class="flex-1 rounded-t-md bg-primary-400/80 hover:bg-primary-500 transition-colors" style="height:45%"></div>
+                  <div class="flex-1 rounded-t-md bg-primary-400/80 hover:bg-primary-500 transition-colors" style="height:80%"></div>
+                  <div class="flex-1 rounded-t-md bg-primary-400/80 hover:bg-primary-500 transition-colors" style="height:55%"></div>
+                  <div class="flex-1 rounded-t-md bg-primary-400/80 hover:bg-primary-500 transition-colors" style="height:90%"></div>
+                  <div class="flex-1 rounded-t-md bg-primary-400/80 hover:bg-primary-500 transition-colors" style="height:70%"></div>
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div class="p-4 rounded-xl bg-warm-50 border border-warm-100">
+                  <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="shopping-cart" class="w-4 h-4 text-primary-500"></i>
+                    <span class="text-xs font-semibold text-dark-500">Transaksi</span>
+                  </div>
+                  <p class="text-xl font-bold text-dark-800">142</p>
+                </div>
+                <div class="p-4 rounded-xl bg-accent-50 border border-accent-100">
+                  <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="package" class="w-4 h-4 text-accent-600"></i>
+                    <span class="text-xs font-semibold text-dark-500">Stok Menipis</span>
+                  </div>
+                  <p class="text-xl font-bold text-dark-800">8 Item</p>
+                </div>
+                <div class="p-4 rounded-xl bg-primary-50 border border-primary-100">
+                  <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="users" class="w-4 h-4 text-primary-600"></i>
+                    <span class="text-xs font-semibold text-dark-500">Pelanggan</span>
+                  </div>
+                  <p class="text-xl font-bold text-dark-800">56</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="fitur" class="py-20 md:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-semibold text-primary-600 mb-3">FITUR LENGKAP</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-dark-900 mb-4">Semua yang Anda Butuhkan</h2>
+        <p class="text-dark-400">Grfyn POS hadir dengan fitur lengkap untuk mempermudah operasional bisnis Anda sehari-hari.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="group p-6 rounded-2xl bg-card border border-primary-100/60 card-hover">
+          <div class="w-12 h-12 rounded-xl bg-primary-50 text-primary-600 border border-primary-100 flex items-center justify-center mb-5">
+            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-dark-800 mb-2">Transaksi Cepat</h3>
+          <p class="text-sm text-dark-400 leading-relaxed">Proses penjualan hanya dalam hitungan detik. Dukungan untuk barcode scanner dan multi-payment.</p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-card border border-primary-100/60 card-hover">
+          <div class="w-12 h-12 rounded-xl bg-accent-50 text-accent-600 border border-accent-100 flex items-center justify-center mb-5">
+            <i data-lucide="package" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-dark-800 mb-2">Manajemen Stok</h3>
+          <p class="text-sm text-dark-400 leading-relaxed">Pantau stok barang real-time, dapatkan notifikasi saat stok menipis, dan kelola supplier dengan mudah.</p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-card border border-primary-100/60 card-hover">
+          <div class="w-12 h-12 rounded-xl bg-warm-50 text-warm-600 border border-warm-100 flex items-center justify-center mb-5">
+            <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-dark-800 mb-2">Laporan Lengkap</h3>
+          <p class="text-sm text-dark-400 leading-relaxed">Analisis penjualan, laba rugi, dan performa produk dengan grafik yang mudah dipahami.</p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-card border border-primary-100/60 card-hover">
+          <div class="w-12 h-12 rounded-xl bg-primary-50 text-primary-600 border border-primary-100 flex items-center justify-center mb-5">
+            <i data-lucide="users" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-dark-800 mb-2">Data Pelanggan & Supplier</h3>
+          <p class="text-sm text-dark-400 leading-relaxed">Kelola database pelanggan dan supplier lengkap dengan riwayat transaksi.</p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-card border border-primary-100/60 card-hover">
+          <div class="w-12 h-12 rounded-xl bg-accent-50 text-accent-600 border border-accent-100 flex items-center justify-center mb-5">
+            <i data-lucide="receipt" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-dark-800 mb-2">Multi Cabang & Kasir</h3>
+          <p class="text-sm text-dark-400 leading-relaxed">Kelola banyak cabang dan kasir dalam satu akun. Pantau performa masing-masing cabang.</p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-card border border-primary-100/60 card-hover">
+          <div class="w-12 h-12 rounded-xl bg-warm-50 text-warm-600 border border-warm-100 flex items-center justify-center mb-5">
+            <i data-lucide="smartphone" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-dark-800 mb-2">Akses di Mana Saja</h3>
+          <p class="text-sm text-dark-400 leading-relaxed">Berbasis web, bisa diakses dari laptop, tablet, maupun smartphone kapanpun Anda mau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="cara-kerja" class="py-20 md:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-semibold text-primary-600 mb-3">CARA KERJA</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-dark-900 mb-4">Mulai dalam 3 Langkah</h2>
+        <p class="text-dark-400">Tidak perlu instalasi rumit. Cukup daftar, atur, dan langsung gunakan.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        <div class="relative text-center">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-primary-500 text-white flex items-center justify-center text-xl font-bold mb-6 shadow-lg shadow-primary-500/20">01</div>
+          <h3 class="text-lg font-bold text-dark-800 mb-2">Daftar Akun</h3>
+          <p class="text-sm text-dark-400 leading-relaxed max-w-xs mx-auto">Buat akun Grfyn POS dalam 2 menit. Tidak perlu kartu kredit dan gratis 14 hari.</p>
+          <div class="hidden md:block absolute top-8 left-[60%] w-[80%]">
+            <div class="h-0.5 bg-primary-100 w-full"></div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-primary-300 absolute -right-1 -top-2"></i>
+          </div>
+        </div>
+        <div class="relative text-center">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-primary-500 text-white flex items-center justify-center text-xl font-bold mb-6 shadow-lg shadow-primary-500/20">02</div>
+          <h3 class="text-lg font-bold text-dark-800 mb-2">Atur Toko Anda</h3>
+          <p class="text-sm text-dark-400 leading-relaxed max-w-xs mx-auto">Masukkan data toko, tambahkan produk, dan atur stok awal dengan mudah.</p>
+          <div class="hidden md:block absolute top-8 left-[60%] w-[80%]">
+            <div class="h-0.5 bg-primary-100 w-full"></div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-primary-300 absolute -right-1 -top-2"></i>
+          </div>
+        </div>
+        <div class="relative text-center">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-primary-500 text-white flex items-center justify-center text-xl font-bold mb-6 shadow-lg shadow-primary-500/20">03</div>
+          <h3 class="text-lg font-bold text-dark-800 mb-2">Mulai Berjualan</h3>
+          <p class="text-sm text-dark-400 leading-relaxed max-w-xs mx-auto">Gunakan Grfyn POS untuk transaksi harian dan pantau bisnis Anda tumbuh.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-16 bg-primary-500">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <i data-lucide="store" class="w-6 h-6 text-primary-200 mx-auto mb-3"></i>
+          <p class="text-3xl md:text-4xl font-extrabold text-white mb-1">2.500+</p>
+          <p class="text-sm text-primary-100">Bisnis Aktif</p>
+        </div>
+        <div class="text-center">
+          <i data-lucide="receipt" class="w-6 h-6 text-primary-200 mx-auto mb-3"></i>
+          <p class="text-3xl md:text-4xl font-extrabold text-white mb-1">10jt+</p>
+          <p class="text-sm text-primary-100">Transaksi/Bulan</p>
+        </div>
+        <div class="text-center">
+          <i data-lucide="zap" class="w-6 h-6 text-primary-200 mx-auto mb-3"></i>
+          <p class="text-3xl md:text-4xl font-extrabold text-white mb-1">99.9%</p>
+          <p class="text-sm text-primary-100">Uptime</p>
+        </div>
+        <div class="text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-primary-200 mx-auto mb-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <p class="text-3xl md:text-4xl font-extrabold text-white mb-1">4.9/5</p>
+          <p class="text-sm text-primary-100">Rating Pengguna</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="harga" class="py-20 md:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-semibold text-primary-600 mb-3">HARGA TRANSPARAN</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-dark-900 mb-4">Pilih Paket yang Sesuai</h2>
+        <p class="text-dark-400">Tidak ada biaya tersembunyi. Upgrade atau downgrade kapan saja sesuai kebutuhan.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Starter -->
+        <div class="relative rounded-2xl p-6 md:p-8 bg-card border border-primary-100/60">
+          <div class="mb-6">
+            <h3 class="text-lg font-bold mb-1 text-dark-800">Starter</h3>
+            <p class="text-sm text-dark-400">Cocok untuk bisnis yang baru mulai</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-3xl font-extrabold text-dark-900">Gratis</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">1 Kasir</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">100 Produk</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">Laporan Harian</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">Support Email</span></li>
+          </ul>
+          <a href="/register" class="block text-center w-full py-3 rounded-xl text-sm font-semibold transition-colors bg-primary-50 hover:bg-primary-100 text-primary-700">Daftar Gratis</a>
+        </div>
+
+        <!-- Bisnis -->
+        <div class="relative rounded-2xl p-6 md:p-8 bg-dark-900 text-white shadow-xl shadow-dark-900/20">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-primary-500 text-white text-xs font-bold">PALING POPULER</div>
+          <div class="mb-6">
+            <h3 class="text-lg font-bold mb-1 text-white">Bisnis</h3>
+            <p class="text-sm text-dark-200">Untuk bisnis yang sedang berkembang</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-3xl font-extrabold text-white">Rp 149rb</span><span class="text-sm text-dark-200">/bulan</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-primary-400"></i><span class="text-dark-100">5 Kasir</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-primary-400"></i><span class="text-dark-100">Produk Unlimited</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-primary-400"></i><span class="text-dark-100">Laporan Lengkap</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-primary-400"></i><span class="text-dark-100">Multi Cabang</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-primary-400"></i><span class="text-dark-100">Support Prioritas</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-primary-400"></i><span class="text-dark-100">Export Excel/PDF</span></li>
+          </ul>
+          <a href="/register" class="block text-center w-full py-3 rounded-xl text-sm font-semibold transition-colors bg-primary-500 hover:bg-primary-600 text-white">Mulai Trial</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="relative rounded-2xl p-6 md:p-8 bg-card border border-primary-100/60">
+          <div class="mb-6">
+            <h3 class="text-lg font-bold mb-1 text-dark-800">Enterprise</h3>
+            <p class="text-sm text-dark-400">Solusi khusus untuk bisnis besar</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-3xl font-extrabold text-dark-900">Custom</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">Kasir Unlimited</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">API Access</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">Dedicated Support</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">On-premise Option</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">Custom Integrasi</span></li>
+            <li class="flex items-center gap-2.5 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0 text-accent-500"></i><span class="text-dark-500">SLA Guarantee</span></li>
+          </ul>
+          <a href="/register" class="block text-center w-full py-3 rounded-xl text-sm font-semibold transition-colors bg-primary-50 hover:bg-primary-100 text-primary-700">Hubungi Kami</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-20 md:py-28 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <p class="text-sm font-semibold text-primary-600 mb-3">FAQ</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-dark-900 mb-4">Pertanyaan yang Sering Diajukan</h2>
+      </div>
+
+      <div class="space-y-3" id="faq-list">
+        <div class="faq-item rounded-xl border border-primary-100 bg-card overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between p-4 md:p-5 text-left">
+            <span class="text-sm font-semibold text-dark-800 pr-4">Apakah Grfyn POS bisa digunakan offline?</span>
+            <div class="faq-icon w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors bg-primary-500 text-white">
+              <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </div>
+          </button>
+          <div class="faq-ans px-4 md:px-5 pb-4 md:pb-5 text-sm text-dark-400 leading-relaxed">
+            Saat ini Grfyn POS berbasis web dan membutuhkan koneksi internet. Namun, kami sedang mengembangkan fitur offline mode yang akan dirilis segera.
+          </div>
+        </div>
+
+        <div class="faq-item rounded-xl border border-primary-100 bg-card overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between p-4 md:p-5 text-left">
+            <span class="text-sm font-semibold text-dark-800 pr-4">Bagaimana cara migrasi dari POS lain?</span>
+            <div class="faq-icon w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors bg-warm-50 text-dark-400">
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 rotate-90"></i>
+            </div>
+          </button>
+          <div class="faq-ans hidden px-4 md:px-5 pb-4 md:pb-5 text-sm text-dark-400 leading-relaxed">
+            Anda bisa mengimpor data produk dan stok melalui file Excel/CSV. Tim support kami juga siap membantu proses migrasi secara gratis.
+          </div>
+        </div>
+
+        <div class="faq-item rounded-xl border border-primary-100 bg-card overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between p-4 md:p-5 text-left">
+            <span class="text-sm font-semibold text-dark-800 pr-4">Apakah data saya aman?</span>
+            <div class="faq-icon w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors bg-warm-50 text-dark-400">
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 rotate-90"></i>
+            </div>
+          </button>
+          <div class="faq-ans hidden px-4 md:px-5 pb-4 md:pb-5 text-sm text-dark-400 leading-relaxed">
+            Sangat aman. Kami menggunakan enkripsi SSL, backup otomatis harian, dan server berstandar enterprise untuk menjaga keamanan data Anda.
+          </div>
+        </div>
+
+        <div class="faq-item rounded-xl border border-primary-100 bg-card overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between p-4 md:p-5 text-left">
+            <span class="text-sm font-semibold text-dark-800 pr-4">Bisa digunakan di perangkat apa saja?</span>
+            <div class="faq-icon w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors bg-warm-50 text-dark-400">
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 rotate-90"></i>
+            </div>
+          </button>
+          <div class="faq-ans hidden px-4 md:px-5 pb-4 md:pb-5 text-sm text-dark-400 leading-relaxed">
+            Grfyn POS bisa diakses dari browser Chrome, Safari, Firefox di laptop, tablet, maupun smartphone. Tidak perlu instalasi aplikasi.
+          </div>
+        </div>
+
+        <div class="faq-item rounded-xl border border-primary-100 bg-card overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between p-4 md:p-5 text-left">
+            <span class="text-sm font-semibold text-dark-800 pr-4">Bagaimana sistem pembayaran yang didukung?</span>
+            <div class="faq-icon w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors bg-warm-50 text-dark-400">
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 rotate-90"></i>
+            </div>
+          </button>
+          <div class="faq-ans hidden px-4 md:px-5 pb-4 md:pb-5 text-sm text-dark-400 leading-relaxed">
+            Kami mendukung cash, transfer bank, QRIS, GoPay, OVO, DANA, dan LinkAja. Integrasi dengan payment gateway juga tersedia di paket Enterprise.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 md:py-28">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="relative rounded-3xl bg-dark-900 overflow-hidden p-8 md:p-16 text-center">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-accent-500/20 rounded-full blur-3xl"></div>
+
+        <div class="relative">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Siap Mengelola Bisnis Lebih Baik?</h2>
+          <p class="text-dark-200 mb-8 max-w-lg mx-auto">Coba Grfyn POS gratis selama 14 hari. Tidak perlu kartu kredit dan bisa dibatalkan kapan saja.</p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="/register" class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-semibold transition-colors shadow-lg shadow-primary-500/20">
+              Mulai Gratis 14 Hari
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="mailto:hello@grfyn.id" class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-dark-600 text-dark-200 font-semibold hover:bg-dark-800 transition-colors">
+              Hubungi Sales
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-primary-100 pt-16 pb-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        <div class="col-span-2 md:col-span-1">
+          <a href="#" class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
+              <i data-lucide="shopping-cart" class="w-4 h-4 text-white"></i>
+            </div>
+            <span class="text-lg font-bold text-dark-800">Grfyn POS</span>
+          </a>
+          <p class="text-sm text-dark-400 leading-relaxed mb-4">
+            Sistem Point of Sale modern untuk UMKM Indonesia. Kelola bisnis lebih mudah, cepat, dan terorganisir.
+          </p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="w-8 h-8 rounded-lg bg-warm-50 flex items-center justify-center text-dark-400 hover:bg-primary-50 hover:text-primary-600 transition-colors">
+              <i data-lucide="globe" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-warm-50 flex items-center justify-center text-dark-400 hover:bg-primary-50 hover:text-primary-600 transition-colors">
+              <i data-lucide="lock" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-bold text-dark-800 mb-4">Produk</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Fitur</a></li>
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Harga</a></li>
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Integrasi</a></li>
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Update</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-bold text-dark-800 mb-4">Perusahaan</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Tentang Kami</a></li>
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Blog</a></li>
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Karir</a></li>
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Kontak</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-bold text-dark-800 mb-4">Bantuan</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Pusat Bantuan</a></li>
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Dokumentasi</a></li>
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">Status</a></li>
+            <li><a href="#" class="text-sm text-dark-400 hover:text-primary-600 transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-primary-100 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-dark-300">2026 Grfyn POS. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="#" class="text-xs text-dark-300 hover:text-dark-500 transition-colors">Privacy Policy</a>
+          <a href="#" class="text-xs text-dark-300 hover:text-dark-500 transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        navbar.classList.add('glass', 'shadow-sm');
+        navbar.classList.remove('bg-transparent');
+      } else {
+        navbar.classList.remove('glass', 'shadow-sm');
+        navbar.classList.add('bg-transparent');
+      }
+    });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    let isMenuOpen = false;
+
+    menuBtn.addEventListener('click', function() {
+      isMenuOpen = !isMenuOpen;
+      if (isMenuOpen) {
+        mobileMenu.classList.remove('hidden');
+        menuIcon.setAttribute('data-lucide', 'x');
+      } else {
+        mobileMenu.classList.add('hidden');
+        menuIcon.setAttribute('data-lucide', 'menu');
+      }
+      lucide.createIcons();
+    });
+
+    // FAQ accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(function(item) {
+      const btn = item.querySelector('.faq-btn');
+      const ans = item.querySelector('.faq-ans');
+      const iconDiv = item.querySelector('.faq-icon');
+
+      btn.addEventListener('click', function() {
+        const isOpen = !ans.classList.contains('hidden');
+
+        // Close all others
+        faqItems.forEach(function(other) {
+          if (other !== item) {
+            const otherAns = other.querySelector('.faq-ans');
+            const otherIconDiv = other.querySelector('.faq-icon');
+            otherAns.classList.add('hidden');
+            otherIconDiv.classList.remove('bg-primary-500', 'text-white');
+            otherIconDiv.classList.add('bg-warm-50', 'text-dark-400');
+            otherIconDiv.innerHTML = '<i data-lucide="chevron-right" class="w-3.5 h-3.5 rotate-90"></i>';
+          }
+        });
+
+        if (isOpen) {
+          ans.classList.add('hidden');
+          iconDiv.classList.remove('bg-primary-500', 'text-white');
+          iconDiv.classList.add('bg-warm-50', 'text-dark-400');
+          iconDiv.innerHTML = '<i data-lucide="chevron-right" class="w-3.5 h-3.5 rotate-90"></i>';
+        } else {
+          ans.classList.remove('hidden');
+          iconDiv.classList.remove('bg-warm-50', 'text-dark-400');
+          iconDiv.classList.add('bg-primary-500', 'text-white');
+          iconDiv.innerHTML = '<i data-lucide="x" class="w-3.5 h-3.5"></i>';
+        }
+        lucide.createIcons();
+      });
+    });
+  </script>
+</body>
 </html>
