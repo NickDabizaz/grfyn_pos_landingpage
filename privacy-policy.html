@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy - Grfyn POS</title>
+  <meta name="description" content="Kebijakan Privasi Grfyn POS - Privacy Policy" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#FAF0E8', 100: '#F5E0D0', 200: '#EBC4A8', 300: '#E0A380',
+              400: '#D48258', 500: '#C4683D', 600: '#A35030', 700: '#843E24',
+              800: '#682E1A', 900: '#4E2112',
+            },
+            accent: {
+              50: '#F0F6F4', 100: '#DFEFEA', 200: '#BFDFD6', 300: '#9DCFC0',
+              400: '#7ABFAA', 500: '#5EAB96', 600: '#4B8C7A', 700: '#3A6E5F',
+              800: '#2A5246', 900: '#1C382F',
+            },
+            warm: {
+              50: '#FDF9F0', 100: '#FAF2E0', 200: '#F5E5C0', 300: '#EED59A',
+              400: '#E6C575', 500: '#DBB250', 600: '#C09940', 700: '#A07D30',
+              800: '#806224', 900: '#604818',
+            },
+            dark: {
+              50: '#F5F2EE', 100: '#E8E2DA', 200: '#CFC5B8', 300: '#B5A796',
+              400: '#998A76', 500: '#7D6D59', 600: '#635446', 700: '#4B3E34',
+              800: '#352B23', 900: '#211A15',
+            },
+            surface: '#FDF8F2',
+            card: '#FFFDF9',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: #4B3E34; background: #FDF8F2; min-height: 100vh; }
+    ::selection { background: #C4683D20; color: #C4683D; }
+    .glass {
+      background: rgba(255, 253, 249, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 253, 249, 0.6);
+    }
+    .policy-section h3 { margin-top: 2rem; margin-bottom: 0.75rem; }
+    .policy-section p, .policy-section ul { margin-bottom: 0.75rem; }
+    .policy-section ul { list-style-type: disc; padding-left: 1.5rem; }
+    .policy-section ul li { margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body class="min-h-screen bg-surface">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 glass shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
+            <i data-lucide="shopping-cart" class="w-4 h-4 text-white"></i>
+          </div>
+          <span class="text-lg font-bold text-dark-800">Grfyn POS</span>
+        </a>
+        <a href="index.html" class="text-sm font-medium text-dark-500 hover:text-primary-600 transition-colors flex items-center gap-1">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          Kembali
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Language Toggle -->
+  <div class="pt-24 pb-4">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 flex justify-end">
+      <div class="inline-flex rounded-xl border border-primary-200 overflow-hidden text-sm font-semibold">
+        <button id="btn-id" onclick="switchLang('id')" class="px-4 py-2 bg-primary-500 text-white transition-colors">Bahasa Indonesia</button>
+        <button id="btn-en" onclick="switchLang('en')" class="px-4 py-2 bg-card text-dark-500 hover:bg-primary-50 transition-colors">English</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== BAHASA INDONESIA ==================== -->
+  <main id="content-id" class="pb-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="rounded-2xl bg-card border border-primary-100/60 p-6 md:p-10">
+
+        <h1 class="text-3xl md:text-4xl font-bold text-dark-900 mb-2">Kebijakan Privasi</h1>
+        <p class="text-sm text-dark-400 mb-8">Terakhir diperbarui: 30 Mei 2026</p>
+
+        <div class="policy-section text-sm text-dark-500 leading-relaxed">
+
+          <p>Grfyn POS ("kami", "milik kami") menghargai privasi Anda. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, dan melindungi informasi pribadi Anda saat Anda menggunakan layanan Grfyn POS, termasuk aplikasi web, API, dan layanan terkait lainnya (secara bersama-sama disebut "Layanan").</p>
+
+          <p>Dengan menggunakan Layanan kami, Anda menyetujui pengumpulan dan penggunaan informasi sesuai dengan Kebijakan Privasi ini.</p>
+
+          <h3 class="text-lg font-bold text-dark-800">1. Informasi yang Kami Kumpulkan</h3>
+
+          <p><strong>a. Informasi yang Anda Berikan Secara Langsung</strong></p>
+          <ul>
+            <li><strong>Data Akun:</strong> Nama, alamat email, nomor telepon, nama bisnis/toko, dan kata sandi saat Anda mendaftar akun.</li>
+            <li><strong>Data Bisnis:</strong> Informasi toko, data produk, data stok, harga, kategori produk, dan informasi operasional bisnis lainnya yang Anda masukkan ke dalam Layanan.</li>
+            <li><strong>Data Transaksi:</strong> Catatan penjualan, pembelian, retur, pembayaran, piutang, hutang, transfer stok, stock opname, produksi, dan transaksi keuangan lainnya.</li>
+            <li><strong>Data Pelanggan & Supplier:</strong> Nama, kontak, alamat, dan riwayat transaksi pelanggan serta supplier yang Anda input.</li>
+            <li><strong>Data Karyawan:</strong> Nama, kontak, data absensi, dan informasi penggajian karyawan Anda.</li>
+            <li><strong>Data Pembayaran Langganan:</strong> Informasi yang diperlukan untuk memproses pembayaran langganan Pro melalui payment gateway (Midtrans), termasuk detail transaksi pembayaran.</li>
+          </ul>
+
+          <p><strong>b. Informasi yang Dikumpulkan Secara Otomatis</strong></p>
+          <ul>
+            <li><strong>Data Penggunaan:</strong> Informasi tentang bagaimana Anda menggunakan Layanan, termasuk fitur yang diakses, frekuensi penggunaan, dan jumlah transaksi.</li>
+            <li><strong>Data Perangkat:</strong> Jenis perangkat, sistem operasi, jenis browser, alamat IP, dan pengidentifikasi perangkat.</li>
+            <li><strong>Cookie & Teknologi Serupa:</strong> Kami menggunakan cookie dan token sesi untuk mengelola autentikasi, preferensi pengguna, dan keamanan sesi.</li>
+            <li><strong>Data Log:</strong> Log server yang mencatat aktivitas sistem untuk tujuan keamanan dan pemecahan masalah.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">2. Bagaimana Kami Menggunakan Informasi Anda</h3>
+          <p>Kami menggunakan informasi yang dikumpulkan untuk:</p>
+          <ul>
+            <li>Menyediakan, mengoperasikan, dan memelihara Layanan Grfyn POS.</li>
+            <li>Memproses transaksi dan mengelola akun langganan Anda (Free atau Pro).</li>
+            <li>Memproses pembayaran langganan melalui payment gateway pihak ketiga.</li>
+            <li>Menghitung dan memantau kuota transaksi bulanan sesuai paket langganan Anda.</li>
+            <li>Menyediakan fitur backup data bagi pengguna Pro.</li>
+            <li>Mengirimkan notifikasi terkait layanan, termasuk informasi langganan, pembaruan fitur, dan peringatan keamanan.</li>
+            <li>Memberikan dukungan teknis dan layanan pelanggan.</li>
+            <li>Menganalisis penggunaan Layanan untuk peningkatan produk dan pengalaman pengguna.</li>
+            <li>Mendeteksi, mencegah, dan menangani masalah teknis, penipuan, atau pelanggaran keamanan.</li>
+            <li>Memenuhi kewajiban hukum yang berlaku.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">3. Penyimpanan dan Keamanan Data</h3>
+          <ul>
+            <li>Semua data disimpan di server yang aman dengan enkripsi SSL/TLS untuk transmisi data.</li>
+            <li>Kata sandi disimpan menggunakan hashing kriptografi yang aman (tidak pernah disimpan dalam bentuk teks biasa).</li>
+            <li>Kami menerapkan kontrol akses berbasis peran (role-based access control) untuk membatasi akses ke data.</li>
+            <li>Setiap tenant (bisnis) memiliki isolasi data yang ketat; data Anda tidak dapat diakses oleh tenant lain.</li>
+            <li>Kami melakukan backup data secara berkala untuk mencegah kehilangan data.</li>
+            <li>Akses ke sistem administrasi dibatasi dan dipantau secara ketat.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">4. Berbagi Informasi dengan Pihak Ketiga</h3>
+          <p>Kami <strong>tidak menjual, memperdagangkan, atau menyewakan</strong> informasi pribadi Anda kepada pihak ketiga. Kami hanya membagikan informasi dalam situasi berikut:</p>
+          <ul>
+            <li><strong>Payment Gateway (Midtrans):</strong> Data yang diperlukan untuk memproses pembayaran langganan, termasuk ID order, jumlah pembayaran, dan informasi terkait transaksi pembayaran.</li>
+            <li><strong>Kewajiban Hukum:</strong> Jika diwajibkan oleh hukum, peraturan, proses hukum, atau permintaan pemerintah yang berlaku.</li>
+            <li><strong>Perlindungan Hak:</strong> Untuk melindungi hak, properti, atau keselamatan kami, pengguna kami, atau publik.</li>
+            <li><strong>Dengan Persetujuan Anda:</strong> Dalam situasi lain di mana kami telah memperoleh persetujuan eksplisit dari Anda.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">5. Retensi Data</h3>
+          <ul>
+            <li>Data akun dan bisnis Anda disimpan selama akun Anda aktif.</li>
+            <li>Jika akun dihapus, data bisnis Anda akan dihapus secara permanen dalam waktu 30 hari setelah permintaan penghapusan, kecuali jika kami diwajibkan oleh hukum untuk menyimpannya lebih lama.</li>
+            <li>Data log dan analitik disimpan selama maksimal 12 bulan untuk tujuan keamanan dan perbaikan layanan.</li>
+            <li>Data pembayaran langganan disimpan sesuai dengan kewajiban hukum perpajakan dan keuangan yang berlaku.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">6. Hak-Hak Anda</h3>
+          <p>Anda memiliki hak berikut terkait data pribadi Anda:</p>
+          <ul>
+            <li><strong>Hak Akses:</strong> Anda dapat mengakses dan mengunduh data bisnis Anda melalui fitur backup (tersedia untuk pengguna Pro).</li>
+            <li><strong>Hak Koreksi:</strong> Anda dapat memperbarui dan memperbaiki data profil dan bisnis Anda kapan saja melalui Layanan.</li>
+            <li><strong>Hak Penghapusan:</strong> Anda dapat meminta penghapusan akun dan seluruh data terkait dengan menghubungi kami.</li>
+            <li><strong>Hak Portabilitas:</strong> Anda dapat mengekspor data bisnis Anda dalam format yang umum digunakan.</li>
+            <li><strong>Hak Keberatan:</strong> Anda dapat mengajukan keberatan atas pemrosesan data tertentu dengan menghubungi kami.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">7. Cookie</h3>
+          <p>Kami menggunakan cookie yang bersifat esensial untuk:</p>
+          <ul>
+            <li>Mengelola sesi login dan autentikasi pengguna.</li>
+            <li>Menyimpan preferensi pengaturan Anda.</li>
+            <li>Menjaga keamanan akun Anda.</li>
+          </ul>
+          <p>Kami tidak menggunakan cookie pelacakan pihak ketiga atau cookie untuk periklanan.</p>
+
+          <h3 class="text-lg font-bold text-dark-800">8. Perlindungan Data Anak</h3>
+          <p>Layanan kami tidak ditujukan untuk anak-anak di bawah usia 18 tahun. Kami tidak secara sengaja mengumpulkan informasi pribadi dari anak-anak. Jika Anda mengetahui bahwa seorang anak telah memberikan informasi pribadi kepada kami, silakan hubungi kami agar kami dapat mengambil tindakan yang diperlukan.</p>
+
+          <h3 class="text-lg font-bold text-dark-800">9. Perubahan Kebijakan Privasi</h3>
+          <p>Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Perubahan material akan diberitahukan melalui email atau notifikasi dalam Layanan. Penggunaan Layanan secara berkelanjutan setelah perubahan berlaku berarti Anda menerima Kebijakan Privasi yang diperbarui.</p>
+
+          <h3 class="text-lg font-bold text-dark-800">10. Hukum yang Berlaku</h3>
+          <p>Kebijakan Privasi ini diatur dan ditafsirkan sesuai dengan hukum Republik Indonesia, termasuk namun tidak terbatas pada Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).</p>
+
+          <h3 class="text-lg font-bold text-dark-800">11. Hubungi Kami</h3>
+          <p>Jika Anda memiliki pertanyaan, permintaan, atau keluhan terkait Kebijakan Privasi ini atau praktik privasi kami, silakan hubungi kami melalui:</p>
+          <ul>
+            <li><strong>Email:</strong> hello@grfyn.id</li>
+            <li><strong>Website:</strong> grfyn.id</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== ENGLISH ==================== -->
+  <main id="content-en" class="pb-20 hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="rounded-2xl bg-card border border-primary-100/60 p-6 md:p-10">
+
+        <h1 class="text-3xl md:text-4xl font-bold text-dark-900 mb-2">Privacy Policy</h1>
+        <p class="text-sm text-dark-400 mb-8">Last updated: May 30, 2026</p>
+
+        <div class="policy-section text-sm text-dark-500 leading-relaxed">
+
+          <p>Grfyn POS ("we", "our", "us") values your privacy. This Privacy Policy explains how we collect, use, store, and protect your personal information when you use the Grfyn POS service, including the web application, API, and other related services (collectively, the "Service").</p>
+
+          <p>By using our Service, you agree to the collection and use of information in accordance with this Privacy Policy.</p>
+
+          <h3 class="text-lg font-bold text-dark-800">1. Information We Collect</h3>
+
+          <p><strong>a. Information You Provide Directly</strong></p>
+          <ul>
+            <li><strong>Account Data:</strong> Name, email address, phone number, business/store name, and password when you register an account.</li>
+            <li><strong>Business Data:</strong> Store information, product data, inventory data, prices, product categories, and other business operational information you enter into the Service.</li>
+            <li><strong>Transaction Data:</strong> Sales records, purchases, returns, payments, receivables, payables, stock transfers, stock opname, production, and other financial transactions.</li>
+            <li><strong>Customer & Supplier Data:</strong> Names, contact details, addresses, and transaction histories of customers and suppliers you input.</li>
+            <li><strong>Employee Data:</strong> Names, contact details, attendance data, and payroll information of your employees.</li>
+            <li><strong>Subscription Payment Data:</strong> Information required to process Pro subscription payments through the payment gateway (Midtrans), including payment transaction details.</li>
+          </ul>
+
+          <p><strong>b. Information Collected Automatically</strong></p>
+          <ul>
+            <li><strong>Usage Data:</strong> Information about how you use the Service, including features accessed, frequency of use, and transaction counts.</li>
+            <li><strong>Device Data:</strong> Device type, operating system, browser type, IP address, and device identifiers.</li>
+            <li><strong>Cookies & Similar Technologies:</strong> We use cookies and session tokens to manage authentication, user preferences, and session security.</li>
+            <li><strong>Log Data:</strong> Server logs recording system activity for security and troubleshooting purposes.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">2. How We Use Your Information</h3>
+          <p>We use the information collected to:</p>
+          <ul>
+            <li>Provide, operate, and maintain the Grfyn POS Service.</li>
+            <li>Process transactions and manage your subscription account (Free or Pro).</li>
+            <li>Process subscription payments through third-party payment gateways.</li>
+            <li>Calculate and monitor monthly transaction quotas according to your subscription plan.</li>
+            <li>Provide data backup features for Pro users.</li>
+            <li>Send service-related notifications, including subscription information, feature updates, and security alerts.</li>
+            <li>Provide technical support and customer service.</li>
+            <li>Analyze Service usage for product improvement and user experience enhancement.</li>
+            <li>Detect, prevent, and address technical issues, fraud, or security breaches.</li>
+            <li>Comply with applicable legal obligations.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">3. Data Storage and Security</h3>
+          <ul>
+            <li>All data is stored on secure servers with SSL/TLS encryption for data transmission.</li>
+            <li>Passwords are stored using secure cryptographic hashing (never stored in plain text).</li>
+            <li>We implement role-based access control (RBAC) to restrict data access.</li>
+            <li>Each tenant (business) has strict data isolation; your data cannot be accessed by other tenants.</li>
+            <li>We perform regular data backups to prevent data loss.</li>
+            <li>Access to administrative systems is restricted and closely monitored.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">4. Information Sharing with Third Parties</h3>
+          <p>We <strong>do not sell, trade, or rent</strong> your personal information to third parties. We only share information in the following situations:</p>
+          <ul>
+            <li><strong>Payment Gateway (Midtrans):</strong> Data necessary to process subscription payments, including order ID, payment amount, and payment transaction-related information.</li>
+            <li><strong>Legal Obligations:</strong> If required by law, regulation, legal process, or applicable government request.</li>
+            <li><strong>Protection of Rights:</strong> To protect the rights, property, or safety of ourselves, our users, or the public.</li>
+            <li><strong>With Your Consent:</strong> In other situations where we have obtained your explicit consent.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">5. Data Retention</h3>
+          <ul>
+            <li>Your account and business data is retained as long as your account remains active.</li>
+            <li>If your account is deleted, your business data will be permanently removed within 30 days of the deletion request, unless we are legally required to retain it longer.</li>
+            <li>Log and analytics data is retained for a maximum of 12 months for security and service improvement purposes.</li>
+            <li>Subscription payment data is retained in accordance with applicable tax and financial legal obligations.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">6. Your Rights</h3>
+          <p>You have the following rights regarding your personal data:</p>
+          <ul>
+            <li><strong>Right of Access:</strong> You can access and download your business data through the backup feature (available for Pro users).</li>
+            <li><strong>Right of Rectification:</strong> You can update and correct your profile and business data at any time through the Service.</li>
+            <li><strong>Right of Erasure:</strong> You can request deletion of your account and all associated data by contacting us.</li>
+            <li><strong>Right of Portability:</strong> You can export your business data in commonly used formats.</li>
+            <li><strong>Right to Object:</strong> You can object to certain data processing by contacting us.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-dark-800">7. Cookies</h3>
+          <p>We use essential cookies to:</p>
+          <ul>
+            <li>Manage login sessions and user authentication.</li>
+            <li>Store your preference settings.</li>
+            <li>Maintain your account security.</li>
+          </ul>
+          <p>We do not use third-party tracking cookies or advertising cookies.</p>
+
+          <h3 class="text-lg font-bold text-dark-800">8. Children's Data Protection</h3>
+          <p>Our Service is not intended for children under the age of 18. We do not knowingly collect personal information from children. If you become aware that a child has provided personal information to us, please contact us so we can take appropriate action.</p>
+
+          <h3 class="text-lg font-bold text-dark-800">9. Changes to This Privacy Policy</h3>
+          <p>We may update this Privacy Policy from time to time. Material changes will be notified via email or in-Service notification. Continued use of the Service after changes take effect means you accept the updated Privacy Policy.</p>
+
+          <h3 class="text-lg font-bold text-dark-800">10. Governing Law</h3>
+          <p>This Privacy Policy is governed by and construed in accordance with the laws of the Republic of Indonesia, including but not limited to Law Number 27 of 2022 concerning Personal Data Protection (PDP Law).</p>
+
+          <h3 class="text-lg font-bold text-dark-800">11. Contact Us</h3>
+          <p>If you have any questions, requests, or complaints regarding this Privacy Policy or our privacy practices, please contact us at:</p>
+          <ul>
+            <li><strong>Email:</strong> hello@grfyn.id</li>
+            <li><strong>Website:</strong> grfyn.id</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-primary-100 py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-dark-300">2026 Grfyn POS. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="privacy-policy.html" class="text-xs text-dark-500 font-medium">Privacy Policy</a>
+          <a href="index.html" class="text-xs text-dark-300 hover:text-dark-500 transition-colors">Beranda</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    function switchLang(lang) {
+      const idContent = document.getElementById('content-id');
+      const enContent = document.getElementById('content-en');
+      const btnId = document.getElementById('btn-id');
+      const btnEn = document.getElementById('btn-en');
+
+      if (lang === 'en') {
+        idContent.classList.add('hidden');
+        enContent.classList.remove('hidden');
+        btnId.classList.remove('bg-primary-500', 'text-white');
+        btnId.classList.add('bg-card', 'text-dark-500', 'hover:bg-primary-50');
+        btnEn.classList.remove('bg-card', 'text-dark-500', 'hover:bg-primary-50');
+        btnEn.classList.add('bg-primary-500', 'text-white');
+      } else {
+        enContent.classList.add('hidden');
+        idContent.classList.remove('hidden');
+        btnEn.classList.remove('bg-primary-500', 'text-white');
+        btnEn.classList.add('bg-card', 'text-dark-500', 'hover:bg-primary-50');
+        btnId.classList.remove('bg-card', 'text-dark-500', 'hover:bg-primary-50');
+        btnId.classList.add('bg-primary-500', 'text-white');
+      }
+    }
+  </script>
+</body>
+</html>
